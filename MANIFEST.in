@@ -1,0 +1,2 @@
+include boxbrainiac/templates/*.html
+include boxbrainiac/static/css/*.css
