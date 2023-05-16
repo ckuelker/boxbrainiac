@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Box Repository - Input View</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/default.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+</head>
+<body>
+    <main>
+    <h1>Add a New Box</h1>
+    <form action="{{ url_for('manage_boxes') }}" method="post">
+        <table>
+            <tr>
+                <td><label for="realm">Realm:</label></td>
+                <td><input type="text" id="realm" name="realm" required></td>
+            </tr>
+            <tr>
+                <td><label for="content">Content:</label></td>
+                <td><textarea id="content" name="content" required></textarea>
+            <tr>
+                <td><label for="location">Location:</label></td>
+                <td><input type="text" id="location" name="location" required></td>
+            </tr>
+            <tr>
+                <td><a href="{{ url_for('list_view') }}">Back to list view</a></td><td><input type="submit" value="Add Box"></td>
+            </tr>
+        </table>
+    </form>
+    </main>
+    <footer>
+    <div id="copyright">
+            Ⓒ  {{ copyright.year }} by <a href="{{ copyright.url }}">{{ copyright.target }}</a> under {{ copyright.license }}
+    </div>
+    </footer>
+</body>
+</html>
+

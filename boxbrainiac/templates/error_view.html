@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Error</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/default.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+</head>
+<body>
+    <main>
+    <h1>An Error Occurred</h1>
+    <p>Error mesage: {{ message }}</p>
+    <p>Error number: {{ number }}</p>
+    <a href="{{ url_for('list_view') }}">Return to the list view</a>
+    </main>
+    <footer>
+    <div id="copyright">
+            Ⓒ  {{ copyright.year }} by <a href="{{ copyright.url }}">{{ copyright.target }}</a> under {{ copyright.license }}
+    </div>
+    </footer>
+</body>
+</html>
+

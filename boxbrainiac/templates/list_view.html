@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Box Repository - List View</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/default.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+</head>
+<body>
+    <main>
+    <h1>List of Boxes</h1>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Realm</th>
+            <th>Content</th>
+            <th>Location</th>
+            <th></th>
+            <th></th>
+        </tr>
+        {% for box in boxes %}
+        <tr>
+            <td>{{ box.id }}</td>
+            <td>{{ box.realm }}</td>
+            <td>{{ box.content }}</td>
+            <td>{{ box.location }}</td>
+            <td><a href="{{ url_for('edit_box', box_id=box.id) }}">Edit</a></td>
+            <td>
+                <form action="{{ url_for('delete_box', box_id=box.id) }}" method="post">
+                    <input type="submit" value="Delete" onclick="return confirm('Are you sure you want to delete this box?');">
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+        <tr>
+                <td></td>
+                <td></td>
+                <td><a href="{{ url_for('search_view') }}">Search</a></td>
+                <td></td>
+                <td><a href="{{ url_for('input_view') }}">New</a></td>
+                <td></td>
+        </tr>
+    </table>
+    </main>
+    <footer>
+    <div id="copyright">
+            Ⓒ  {{ copyright.year }} by <a href="{{ copyright.url }}">{{ copyright.target }}</a> under {{ copyright.license }}
+    </div>
+    </footer>
+</body>
+</html>
+

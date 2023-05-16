@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Box Repository - Search View</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/default.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+</head>
+<body>
+    <main>
+    <h1>Search Boxes by Content</h1>
+    <form action="{{ url_for('search_view') }}" method="get">
+        <table>
+            <tr>
+                <td><label for="search_query">Search:</label></td>
+                <td><input type="text" id="search_query" name="search_query" required autofocus></td>
+                <td><input type="submit" value="Search"></td>
+            </tr>
+            <tr>
+                <td colspan="3"><a href="{{ url_for('list_view') }}">Back to list view</a></td>
+            </tr>
+        </table>
+    </form>
+
+    {% if search_results is not none %}
+    <h1>Search Results:</h1>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Realm</th>
+            <th>Content</th>
+            <th>Location</th>
+            <th></th>
+            <th></th>
+        </tr>
+        {% for box in search_results %}
+        <tr>
+            <td>{{ box.id }}</td>
+            <td>{{ box.realm }}</td>
+            <td>{{ box.content }}</td>
+            <td>{{ box.location }}</td>
+            <td>
+                <a href="{{ url_for('edit_box', box_id=box.id) }}">Edit</a></td>
+            <td>
+                <form action="{{ url_for('delete_box', box_id=box.id) }}" method="post">
+                    <input type="submit" value="Delete" onclick="return confirm('Are you sure you want to delete this box?');">
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+        <tr>
+            <td colspan="6"><a href="{{ url_for('list_view') }}">Back to list view</a></td>
+        </tr>
+    </table>
+    {% endif %}
+    </main>
+    <footer>
+    <div id="copyright">
+            Ⓒ  {{ copyright.year }} by <a href="{{ copyright.url }}">{{ copyright.target }}</a> under {{ copyright.license }}
+    </div>
+    </footer>
+</body>
+</html>
+

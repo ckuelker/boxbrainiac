@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Box Repository - Edit View</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/default.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+</head>
+<body>
+    <main>
+    <h1>Edit Box</h1>
+    <form action="{{ url_for('edit_box', box_id=box.id) }}" method="post">
+        <input type="hidden" name="id" value="{{ box.id }}">
+        <table>
+            <tr><td><label for="realm">Realm:</label></td>
+                <td><input type="text" id="realm" name="realm" value="{{ box.realm }}" style="font-size: 16px; width: 80ch; font-family: 'Courier New', monospace; font-weight: bold;" required></td></tr>
+            <tr><td><label for="content">Content:</label></td>
+                <td><textarea id="content" name="content" style="font-size: 16px; width: 80ch; height: 5em; font-family: 'Courier New', monospace; font-weight: bold;" required>{{ box.content }}</textarea></td></tr>
+            <tr><td><label for="location">Location:</label></td>
+               <td><input type="text" id="location" name="location" value="{{ box.location }}"  style="font-size: 16px; width: 80ch; font-family: 'Courier New', monospace; font-weight: bold;" required></td></tr>
+        <tr><td><a href="{{ url_for('list_view') }}">Back to list view</a></td><td><input type="submit" value="Save Changes"></td></tr>
+        </table>
+    </form>
+    </main>
+    <footer>
+    <div id="copyright">
+            Ⓒ  {{ copyright.year }} by <a href="{{ copyright.url }}">{{ copyright.target }}</a> under {{ copyright.license }}
+    </div>
+    </footer>
+</body>
+</html>
+
