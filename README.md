@@ -277,6 +277,7 @@ Thank you for contributing to `boxbrainiac` and making this project better!
 
 | Version | Date       | Notes                                                |
 | ------- | ---------- | ---------------------------------------------------- |
+| 0.1.1   | 2023-05-24 | Minor GUI improvements (ID -> Box)                   |
 | 0.1.0   | 2023-05-16 | Initial release                                      |
 
 # Author

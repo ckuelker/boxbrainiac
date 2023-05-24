@@ -55,11 +55,7 @@ def run_app():
         except (TypeError, KeyError) as e:
             raise DataProcessingError('DAT-006', str(e))
         data = store.read_yaml(cfg)
-        if data['available_ids']:
-            new_id = data['available_ids'].pop(0)  # Use the smallest available ID
-        else:
-            new_id = len(data[cfg['ns']]) + 1
-
+        new_id = util.get_expected_new_id(cfg, data) # Use the smallest available ID
         new_box = {
             'id': new_id,
             'realm': realm,
@@ -153,7 +149,8 @@ def run_app():
 
     @app.route('/input')
     def input_view():
-        return render_template('input_view.html', copyright=cfg['copyright'])
+        new_id = util.get_expected_new_id(cfg, store.read_yaml(cfg))
+        return render_template('input_view.html', id=new_id, copyright=cfg['copyright'])
 
     @app.route('/search', methods=['GET'])
     def search_view():
