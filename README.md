@@ -23,7 +23,7 @@ primarily designed for individual use and will not handle merge conflicts for
 team use. The application has been tested and is compatible with Debian 9
 Stretch and Debian 11 Bullseye.
 
-![boxbrainiac/static/i/list-of-boxes.png](boxbrainiac/static/i/list-of-boxes.png)
+![boxbrainiac/static/i/list-of-boxes-v0.1.1.png](boxbrainiac/static/i/list-of-boxes-v0.1.1.png)
 
 # Installation
 
