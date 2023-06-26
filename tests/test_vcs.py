@@ -1,8 +1,9 @@
-# file: tests/test_git.py
+#file: tests/test_git.py
 import unittest
 from unittest.mock import patch, MagicMock
 from vcs import is_git_repo, git_pull, git_commit_and_push
 from exception import GitOperationError
+from git import GitCommandError
 
 class TestGit(unittest.TestCase):
     @patch('vcs.Repo')
@@ -16,31 +17,45 @@ class TestGit(unittest.TestCase):
     @patch('vcs.Repo')
     @patch('vcs.logger')
     def test_is_git_repo_false(self, mock_logger, mock_Repo):
-        mock_Repo.side_effect = Exception()
+        mock_Repo.side_effect = GitCommandError('dummy command')
         cfg = {'repo_dir': '/path/to/repo'}
         self.assertFalse(is_git_repo(cfg))
         mock_logger.debug.assert_called_with(" - Directory is NOT a git repository")
 
-    @patch('vcs.pull')
-    @patch('vcs.is_git_repo', return_value=True)
-    def test_git_pull(self, mock_is_git_repo, mock_pull):
-        cfg = {'repo_dir': '/path/to/repo'}
-        git_pull(cfg)
-        mock_pull.assert_called_with(cfg['repo_dir'])
-
-    @patch('vcs.push')
-    @patch('vcs.commit')
-    @patch('vcs.add')
     @patch('vcs.Repo')
     @patch('vcs.is_git_repo', return_value=True)
-    def test_git_commit_and_push(self, mock_is_git_repo, mock_Repo, mock_add, mock_commit, mock_push):
-        mock_Repo.return_value = MagicMock()
-        cfg = {'repo_dir': '/path/to/repo', 'yaml_file': 'file.yaml'}
-        commit_message = "Test commit"
+    @patch('vcs.logger')
+    def test_git_pull(self, mock_logger, mock_is_git_repo, mock_repo):
+        cfg = {'repo_dir': '/path/to/repo'}
+        mock_pull = MagicMock()
+        mock_origin = MagicMock()
+        mock_origin.pull = mock_pull
+        mock_repo.return_value.remotes.origin = mock_origin
+        git_pull(cfg)
+        self.assertEqual(mock_pull.call_count, 1)
+
+    @patch('vcs.Repo')
+    @patch('vcs.is_git_repo', return_value=True)
+    @patch('vcs.os.path.join', return_value='/path/to/repo/yaml_file')
+    @patch('vcs.logger')
+    def test_git_commit_and_push(self, mock_logger, mock_join, mock_is_git_repo, mock_repo):
+        mock_index = MagicMock()
+        mock_origin = MagicMock()
+        mock_repo.return_value.remotes.origin = mock_origin
+        mock_repo.return_value.index = mock_index
+        mock_repo.return_value.is_dirty.return_value = False
+        mock_repo.return_value.untracked_files = ['file1', 'file2']
+        cfg = {
+             'repo_dir': '/path/to/repo', 
+            'yaml_file': 'file1'
+        }
+        commit_message = 'Test commit'
         git_commit_and_push(cfg, commit_message)
-        mock_add.assert_called_with(mock_Repo.return_value, cfg['yaml_file'])
-        mock_commit.assert_called_with(mock_Repo.return_value, message=commit_message)
-        mock_push.assert_called_with(mock_Repo.return_value, "origin", refspecs="master")
+        self.assertEqual(mock_index.add.call_count, 1)
+        self.assertEqual(mock_index.add.call_args[0][0], [cfg['yaml_file']])
+        self.assertEqual(mock_index.commit.call_count, 1)
+        self.assertEqual(mock_index.commit.call_args[0][0], "Added %s" % cfg['yaml_file'])
+        self.assertEqual(mock_origin.push.call_count, 1)
 
 if __name__ == '__main__':
     unittest.main()
