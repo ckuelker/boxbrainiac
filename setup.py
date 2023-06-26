@@ -9,7 +9,7 @@ def read(*paths):
 
 setup(
     name='boxbrainiac',
-    version='0.1.1', # Semantic versioning MAJOR.MINOR.PATCH
+    version='0.1.2', # Semantic versioning MAJOR.MINOR.PATCH
     description='Web application to manage box content, realm and location',
     long_description=(read('README.md') + '\n\n'),
     license="GPLv3+",
@@ -26,7 +26,7 @@ setup(
         'pyyaml', # python3-yaml
         'fuzzywuzzy', # python3-fuzzywuzzy
         'python-Levenshtein', # python3-levenshtein
-        'dulwich', # python3-dulwich for git
+        'gitpython', # python3-git for git
     ],
     extras_require={
         'build': [
