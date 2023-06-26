@@ -1,6 +1,6 @@
 # file: boxbrainiac/store.py
 import yaml
-import boxbrainiac.git as git
+import boxbrainiac.vcs as vcs
 from boxbrainiac.debug import logger
 from boxbrainiac.exception import StoreOperationError
 import os
@@ -34,6 +34,6 @@ def ensure_yaml_exists(cfg):
         data = yaml.safe_load(init)
         write_yaml(cfg, data) # 'w' (but as 'wb')
 
-        if git.is_git_repo(cfg):
-           git.git_commit_and_push(cfg,"Initialize " + cfg['yaml_file'])
+        if vcs.is_git_repo(cfg):
+           vcs.git_commit_and_push(cfg,"Initialize " + cfg['yaml_file'])
 

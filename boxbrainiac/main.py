@@ -11,7 +11,7 @@ from boxbrainiac.config import cfg
 from boxbrainiac.debug import logger
 import boxbrainiac.env as env
 from boxbrainiac.exception import GitOperationError, StoreOperationError, DataProcessingError
-import boxbrainiac.git as git
+import boxbrainiac.vcs as vcs
 import boxbrainiac.store as store
 import boxbrainiac.util as util
 
@@ -44,7 +44,7 @@ def run_app():
     # Routes related to boxbrainiac (CRUD operations)
     @app.route('/' + cfg['ns'], methods=['POST'])
     def manage_boxes():
-        git.git_pull(cfg)  # Pull before writing
+        vcs.git_pull(cfg)  # Pull before writing
         try:
             #realm = html.escape(request.form['realm'])
             #content = html.escape(request.form['content'])
@@ -66,12 +66,12 @@ def run_app():
         data[cfg['ns']].append(new_box)
 
         store.write_yaml(cfg,data)
-        git.git_commit_and_push(cfg, "Add new entity")  # Commit and push after writing
+        vcs.git_commit_and_push(cfg, "Add new entity")  # Commit and push after writing
         return redirect(url_for('list_view'))
 
     @app.route('/edit/<int:box_id>', methods=['GET', 'POST'])
     def edit_box(box_id):
-        git.git_pull(cfg)  # Pull before reading or writing
+        vcs.git_pull(cfg)  # Pull before reading or writing
         data = store.read_yaml(cfg)
         if request.method == 'GET':
             try:
@@ -103,12 +103,12 @@ def run_app():
                 raise DataProcessingError('DAT-008', str(e))
 
             store.write_yaml(cfg, data)
-            git.git_commit_and_push(cfg,"Edit entity with ID {}".format(box_id) )  # Commit and push after writing
+            vcs.git_commit_and_push(cfg,"Edit entity with ID {}".format(box_id) )  # Commit and push after writing
             return redirect(url_for('list_view'))
 
     @app.route('/delete/<int:box_id>', methods=['POST'])
     def delete_box(box_id):
-        git.git_pull(cfg)  # Pull before reading or writing
+        vcs.git_pull(cfg)  # Pull before reading or writing
         data = store.read_yaml(cfg)
         box_index = util.find_box_index(cfg, data, box_id)
         if box_index is not None:
@@ -119,7 +119,7 @@ def run_app():
                 # Keep the list sorted to easily retrieve the smallest ID
                 data['available_ids'].sort()
                 store.write_yaml(cfg, data)
-                git.git_commit_and_push(cfg, "Delete entity with ID {}".format(box_id))  # Commit and push after writing
+                vcs.git_commit_and_push(cfg, "Delete entity with ID {}".format(box_id))  # Commit and push after writing
             except (TypeError, KeyError) as e:
                 raise DataProcessingError('DAT-009', str(e))
         return redirect(url_for('list_view'))
@@ -131,7 +131,7 @@ def run_app():
 
     @app.route('/list')
     def list_view():
-        git.git_pull(cfg)  # Pull before reading
+        vcs.git_pull(cfg)  # Pull before reading
         data = store.read_yaml(cfg)
 
         try:
