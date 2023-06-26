@@ -3,7 +3,7 @@ import unittest
 from unittest.mock import patch, mock_open
 from boxbrainiac.store import read_yaml, write_yaml, ensure_yaml_exists
 from boxbrainiac.exception import StoreOperationError
-import boxbrainiac.git as git
+import boxbrainiac.vcs as vcs
 import tempfile
 import os
 
@@ -26,8 +26,8 @@ class TestStore(unittest.TestCase):
         mock_open.assert_called_once_with(cfg['yaml_path'], 'wb')
         self.assertEqual(mock_safe_dump.call_count, 1)
 
-    @patch('boxbrainiac.git.is_git_repo', return_value=True)
-    @patch('boxbrainiac.git.git_commit_and_push')
+    @patch('boxbrainiac.vcs.is_git_repo', return_value=True)
+    @patch('boxbrainiac.vcs.git_commit_and_push')
     @patch('boxbrainiac.store.write_yaml')
     @patch('boxbrainiac.store.yaml.safe_load', return_value={'ns': [], 'available_ids': []})
     @patch('boxbrainiac.store.os.path.exists', return_value=True)
@@ -38,8 +38,8 @@ class TestStore(unittest.TestCase):
             self.assertEqual(mock_write_yaml.call_count, 0)
             self.assertEqual(mock_git_commit_and_push.call_count, 0)
 
-    @patch('boxbrainiac.git.is_git_repo', return_value=True)
-    @patch('boxbrainiac.git.git_commit_and_push')
+    @patch('boxbrainiac.vcs.is_git_repo', return_value=True)
+    @patch('boxbrainiac.vcs.git_commit_and_push')
     @patch('boxbrainiac.store.write_yaml')
     @patch('boxbrainiac.store.yaml.safe_load', return_value={'ns': [], 'available_ids': []})
     @patch('boxbrainiac.store.os.path.exists', return_value=False)

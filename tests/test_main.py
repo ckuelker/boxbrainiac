@@ -10,10 +10,10 @@ class TestMain(unittest.TestCase):
     @patch('main.Flask.run')
     @patch('main.env.get')
     @patch('argparse.ArgumentParser.parse_args')
-    @patch('main.git.git_pull')
+    @patch('main.vcs.git_pull')
     @patch('main.store.read_yaml')
     @patch('main.store.write_yaml')
-    @patch('main.git.git_commit_and_push')
+    @patch('main.vcs.git_commit_and_push')
     @patch('os.makedirs')  # Mock os.makedirs
     def test_manage_boxes(self, mock_makedirs, mock_git_commit_and_push, mock_write_yaml, mock_read_yaml, mock_git_pull, mock_parse_args, mock_env_get,mock_flask_run):
         with tempfile.TemporaryDirectory() as temp_dir:
@@ -35,7 +35,7 @@ class TestMain(unittest.TestCase):
     @patch('main.Flask.run')
     @patch('main.env.get')
     @patch('argparse.ArgumentParser.parse_args')
-    @patch('main.git.git_pull')
+    @patch('main.vcs.git_pull')
     @patch('main.store.read_yaml')
     @patch('os.makedirs')  # Mock os.makedirs
     def test_list_view(self, mock_makedirs, mock_read_yaml, mock_git_pull, mock_parse_args, mock_env_get, mock_flask_run):
@@ -52,10 +52,10 @@ class TestMain(unittest.TestCase):
     @patch('main.Flask.run')
     @patch('main.env.get')
     @patch('argparse.ArgumentParser.parse_args')
-    @patch('main.git.git_pull')
+    @patch('main.vcs.git_pull')
     @patch('main.store.read_yaml')
     @patch('main.store.write_yaml')
-    @patch('main.git.git_commit_and_push')
+    @patch('main.vcs.git_commit_and_push')
     @patch('os.makedirs')  # Mock os.makedirs
     def test_edit_box(self, mock_makedirs, mock_git_commit_and_push, mock_write_yaml, mock_read_yaml, mock_git_pull, mock_parse_args, mock_env_get, mock_flask_run):
         with tempfile.TemporaryDirectory() as temp_dir:
@@ -82,10 +82,10 @@ class TestMain(unittest.TestCase):
     @patch('main.Flask.run')
     @patch('main.env.get')
     @patch('argparse.ArgumentParser.parse_args')
-    @patch('main.git.git_pull')
+    @patch('main.vcs.git_pull')
     @patch('main.store.read_yaml')
     @patch('main.store.write_yaml')
-    @patch('main.git.git_commit_and_push')
+    @patch('main.vcs.git_commit_and_push')
     @patch('main.util.find_box_index')
     @patch('os.makedirs')  # Mock os.makedirs
     def test_delete_box(self, mock_makedirs, mock_find_box_index, mock_git_commit_and_push, mock_write_yaml, mock_read_yaml, mock_git_pull, mock_parse_args, mock_env_get, mock_flask_run):
@@ -106,7 +106,7 @@ class TestMain(unittest.TestCase):
     @patch('main.Flask.run')
     @patch('main.env.get')
     @patch('argparse.ArgumentParser.parse_args')
-    @patch('main.git.git_pull')
+    @patch('main.vcs.git_pull')
     @patch('main.store.read_yaml')
     @patch('os.makedirs')  # Mock os.makedirs
     def test_search_view(self, mock_makedirs, mock_read_yaml, mock_git_pull, mock_parse_args, mock_env_get, mock_flask_run):
