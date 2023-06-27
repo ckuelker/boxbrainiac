@@ -34,7 +34,7 @@ __Boxbrainiac__ is dependent on Python version 3.5 or higher.
 For Debian users, you can install the dependencies with the following command:
 
 ```bash
-aptitude install python3-dulwich python3-levenshtein python3-fuzzywuzzy \
+aptitude install python3-git python3-levenshtein python3-fuzzywuzzy \
 python3-yaml python3-flask
 ```
 
@@ -75,8 +75,8 @@ options:
 boxbrainiac --host 127.0.0.1 --port 8080
 ```
 
-This command will start `boxbrainiac` on the IPv4 localhost address using port
-8080.
+This command will start `boxbrainiac` on the IPv4 `localhost` address using
+port 8080.
 
 ## Controlling Output Verbosity
 
@@ -171,7 +171,7 @@ git clone https://github.com/ckuelker/boxbrainiac # If not done
 
 # Step 2: Install test dependencies locally inside the virtual environment
 cd boxbrainiac
-# (For bash
+# For bash
 pip install .[test]
 # For zsh
 pip install .\[test\]
@@ -218,12 +218,24 @@ python3 -m venv venv # If not done
 cd venv # If not done
 source bin/activate # If not done
 cd /tmp/boxbrainiac
-pip install dist/boxbrainiac-0.1.0.tar.gz # 1. method OR
-pip install dist/boxbrainiac-0.1.0-py3-none-any.whl # 2. method
+pip install dist/boxbrainiac-0.1.0.tar.gz # 1st method OR
+pip install dist/boxbrainiac-0.1.0-py3-none-any.whl # 2nd method
 ```
 
 This will install it inside the virtual environment. It can also be installed
 globally if required.
+
+# Debugging Git
+
+For a fast git debug `boxbrainiac` can be run from the repository like so
+
+```bash
+export PYTHONPATH=/path/to/git-repository/boxbrainiac
+export BIN=$PYTHONPATH/boxbrainiac/main.py
+export DATA=/path/to/data-repository
+
+python3 $BIN --repo_dir=$DATA -d
+```
 
 # Contribution
 
@@ -270,15 +282,41 @@ project will review your contribution. He may ask for some changes or
 improvements. Please be patient - this is a normal part of the review process,
 and helps to maintain the quality of the codebase.
 
-The time and effort invested in contributing to boxbrainiac are highly valued.
-Thank you for contributing to `boxbrainiac` and making this project better!
+The time and effort invested in contributing to `boxbrainiac` are highly
+valued.  Thank you for contributing to `boxbrainiac` and making this project
+better!
 
 # History
 
 | Version | Date       | Notes                                                |
 | ------- | ---------- | ---------------------------------------------------- |
+| 0.1.2   | 2023-06-26 | Change from Dulwich (git) to GitPython               |
 | 0.1.1   | 2023-05-24 | Minor GUI improvements (ID -> Box)                   |
 | 0.1.0   | 2023-05-16 | Initial release                                      |
+
+
+## 0.1.2 Change git storage layer
+
+- Change from Dulwich (git) to _GitPython_
+- Rename `git.py` to `vcs.py` (name conflict with _GitPython_)
+- Adapt `vcs.py` to use _GitPython_
+- Update `vcs.py` tests
+- Create git directories, if needed for new projects
+- The configuration includes now `yaml_path` from the start (cosmetic change)
+- Changed this `README.md`
+  - Remove bogus bracket
+  - Add detailed changes sub-sections
+  - Change dependency from `python3-dulwich` to `python3-git`
+  - Add more inline verbatim
+  - Add section about debugging git from this repository
+
+## 0.1.1 Minor GUI Improvements
+
+- The __ID__ field was renamed to __Box__ in the GUI (to reflect the object)
+
+## 0.1.0 Initial release
+
+- Release to github.com/ckuelker
 
 # Author
 
@@ -301,6 +339,4 @@ Thank you for contributing to `boxbrainiac` and making this project better!
     You should have received a copy of the GNU General Public License along
     with this program; if not, write to the Free Software Foundation, Inc., 59
     Temple Place, Suite 330, Boston, MA 02111-1307 USA
-
-
 
