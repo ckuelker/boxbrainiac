@@ -2,6 +2,9 @@
 import os
 
 ns = 'boxbrainiac'
+store_yaml_file =  ns + '.yaml'
+store_repo_dir = str(os.path.join(os.path.expanduser('~'), '.' + ns, 'data'))
+store_yaml_path = os.path.join(store_repo_dir,store_yaml_file)
 
 cfg  = {
     # Namespace: boxbrainiac
@@ -11,9 +14,11 @@ cfg  = {
     # Port of Flask web server
     'port': 5000,
     # Database file: boxbrainiac.yaml
-    'yaml_file': ns + '.yaml',
+    'yaml_file': store_yaml_file,
     # Repository: $HOME/.boxbrainiac/data
-    'repo_dir': str(os.path.join(os.path.expanduser('~'), '.' + ns, 'data')),
+    'repo_dir': store_repo_dir,
+    # Fully qualified file name
+    'yaml_path': store_yaml_path,
     # Template directory of boxbrainiac
     'tpl': 'templates',
     # Copyright

@@ -8,7 +8,7 @@ class TestConfig(unittest.TestCase):
     ns = 'boxbrainiac'
 
     def test_config_keys(self):
-        expected_keys = ['ns', 'host', 'port', 'yaml_file', 'repo_dir', 'tpl', 'copyright']
+        expected_keys = ['ns', 'host', 'port', 'yaml_file', 'repo_dir', 'yaml_path', 'tpl', 'copyright']
         self.assertCountEqual(cfg.keys(), expected_keys)
 
     def test_config_values(self):
@@ -19,6 +19,7 @@ class TestConfig(unittest.TestCase):
         self.assertEqual(cfg['port'], 5000)
         self.assertEqual(cfg['yaml_file'], 'boxbrainiac.yaml')
         self.assertEqual(cfg['repo_dir'], repo_dir)
+        self.assertEqual(cfg['yaml_path'], os.path.join(repo_dir,'boxbrainiac.yaml'))
         self.assertEqual(cfg['tpl'], 'templates')
         self.assertEqual(cfg['copyright'], {
             'year': '2023',
