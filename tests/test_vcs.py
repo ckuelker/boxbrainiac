@@ -3,7 +3,7 @@ import unittest
 from unittest.mock import patch, MagicMock
 from vcs import is_git_repo, git_pull, git_commit_and_push
 from exception import GitOperationError
-from git import GitCommandError
+from git import InvalidGitRepositoryError
 
 class TestGit(unittest.TestCase):
     @patch('vcs.Repo')
@@ -12,15 +12,15 @@ class TestGit(unittest.TestCase):
         mock_Repo.return_value = MagicMock()
         cfg = {'repo_dir': '/path/to/repo'}
         self.assertTrue(is_git_repo(cfg))
-        mock_logger.debug.assert_called_with(" - Directory is a git repository")
+        mock_logger.debug.assert_called_with(" - Directory is a git repository: /path/to/repo")
 
     @patch('vcs.Repo')
     @patch('vcs.logger')
     def test_is_git_repo_false(self, mock_logger, mock_Repo):
-        mock_Repo.side_effect = GitCommandError('dummy command')
+        mock_Repo.side_effect = InvalidGitRepositoryError('dummy command')
         cfg = {'repo_dir': '/path/to/repo'}
         self.assertFalse(is_git_repo(cfg))
-        mock_logger.debug.assert_called_with(" - Directory is NOT a git repository")
+        mock_logger.debug.assert_called_with(" - Directory is NOT a git repository: /path/to/repo")
 
     @patch('vcs.Repo')
     @patch('vcs.is_git_repo', return_value=True)
