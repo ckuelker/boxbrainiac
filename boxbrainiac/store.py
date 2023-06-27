@@ -28,6 +28,9 @@ def write_yaml(cfg, data):
         raise StoreOperationError('STO-002', cfg['yaml_path'], str(e))
 
 def ensure_yaml_exists(cfg):
+    dir_path = os.path.dirname(cfg['yaml_path'])
+    if not os.path.exists(dir_path):
+        os.makedirs(dir_path)
     if not os.path.exists(cfg['yaml_path']):
 
         init = "available_ids: []\n" + cfg['ns'] + ": []\n"
