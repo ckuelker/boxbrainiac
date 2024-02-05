@@ -1,3 +1,10 @@
+---
+title: README
+author: Christian Külker
+version: 0.1.3
+date: 2024-02-05
+
+---
 
 # Abstract
 
@@ -290,10 +297,14 @@ better!
 
 | Version | Date       | Notes                                                |
 | ------- | ---------- | ---------------------------------------------------- |
+| 0.1.3   | 2024-02-05 | Update classifier of setup.py                        |
 | 0.1.2   | 2023-06-26 | Change from Dulwich (git) to GitPython               |
 | 0.1.1   | 2023-05-24 | Minor GUI improvements (ID -> Box)                   |
 | 0.1.0   | 2023-05-16 | Initial release                                      |
 
+## 0.1.3 Change setup.py
+
+- Add classifier for Python 3.10 and 3.11
 
 ## 0.1.2 Change git storage layer
 
@@ -324,7 +335,7 @@ better!
 
 # License And Copyright
 
-    Copyright (C) 2023 by Christian Kuelker
+    Copyright (C) 2023 - 2024 by Christian Kuelker
 
     This program is free software; you can redistribute it and/or modify it
     under the terms of the GNU General Public License as published by the Free
