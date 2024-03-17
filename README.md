@@ -8,9 +8,9 @@ date: 2024-02-05
 
 # Abstract
 
-Welcome to __boxbrainiac__, a convenient solution to manage the content of your
-carton boxes eliminating the need to remember what's inside each box. This
-document provides an overview of its features, installation process, and
+Welcome to __boxbrainiac__, a convenient solution for managing the contents of
+your cardboard boxes, eliminating the need to remember what's inside each box.
+This document provides an overview of its features, installation process, and
 additional information.
 
 ![Github license](https://img.shields.io/github/license/ckuelker/boxbrainiac.svg)
@@ -22,13 +22,13 @@ additional information.
 # Introduction
 
 __Boxbrainiac__ is a straightforward application designed to manage the
-contents of your carton boxes. With a simple web GUI and data storage in YAML,
-it aims to make content management a breeze. It incorporates a git layer to
-handle automatic pull, push, commit, and add commands when the YAML database
-file is placed into a git repository. Please note that the git layer is
-primarily designed for individual use and will not handle merge conflicts for
-team use. The application has been tested and is compatible with Debian 9
-Stretch and Debian 11 Bullseye.
+contents of your cardboard boxes. With a simple web GUI and data storage in
+YAML format, it aims to make content management a breeze. It incorporates a git
+layer to handle automatic pull, push, commit, and add commands when the YAML
+database file is placed into a git repository. Please note that the git layer
+is primarily designed for individual use and will not handle merge conflicts
+for team use. The application has been tested and is compatible with Debian 9
+Stretch, Debian 11 Bullseye and Debian 12 Bookworm.
 
 ![boxbrainiac/static/i/list-of-boxes-v0.1.1.png](boxbrainiac/static/i/list-of-boxes-v0.1.1.png)
 
@@ -38,7 +38,7 @@ Stretch and Debian 11 Bullseye.
 
 __Boxbrainiac__ is dependent on Python version 3.5 or higher.
 
-For Debian users, you can install the dependencies with the following command:
+Debian users can install the dependencies with the following command:
 
 ```bash
 aptitude install python3-git python3-levenshtein python3-fuzzywuzzy \
@@ -74,7 +74,7 @@ This command will return the current version of `boxbrainiac`.
 
 ## Customizing the Host and Port
 
-By default, `boxbrainiac` will use the host and port specified in its
+By default, `boxbrainiac` uses the host and port specified in its
 configuration. You can override this by using the `--host` and `--port`
 options:
 
@@ -95,13 +95,15 @@ port 8080.
   boxbrainiac --quiet
   ```
 
-- To print only the host and port to connect to, use the `--verbose` option:
+- To print only the host and port to which to connect, use the `--verbose`
+  option:
 
   ```bash
   boxbrainiac --verbose
   ```
 
-- For detailed output including many debug messages, use the `--debug` option:
+- For detailed output including numerous debug messages, use the `--debug`
+  option:
 
   ```bash
   boxbrainiac --debug
@@ -255,8 +257,8 @@ Before making a contribution, it is strongly recommended that you first discuss
 the change you wish to make via a new issue, email, or any other method with
 the owners of this repository.
 
-If you're unsure about anything, feel free to reach out by writing an email.
-Assistance is readily available to support the contribution process.
+If you're unsure about anything, feel free to reach out by email. Assistance
+is readily available to support the contribution process.
 
 ## Making a Pull Request
 
@@ -297,13 +299,15 @@ better!
 
 | Version | Date       | Notes                                                |
 | ------- | ---------- | ---------------------------------------------------- |
-| 0.1.3   | 2024-02-05 | Update classifier of setup.py                        |
+| 0.1.3   | 2024-02-05 | Update classifier of setup.py, Debian 12, README     |
 | 0.1.2   | 2023-06-26 | Change from Dulwich (git) to GitPython               |
 | 0.1.1   | 2023-05-24 | Minor GUI improvements (ID -> Box)                   |
 | 0.1.0   | 2023-05-16 | Initial release                                      |
 
-## 0.1.3 Change setup.py
+## 0.1.3 Change setup.py, tested on Debian 12
 
+- Tested on Debian 12 Bookworm
+- Improved README.md
 - Add classifier for Python 3.10 and 3.11
 
 ## 0.1.2 Change git storage layer
