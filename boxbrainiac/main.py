@@ -3,7 +3,8 @@
 import os
 import sys
 
-from flask import Flask, request, render_template, redirect, url_for, escape
+from flask import Flask, request, render_template, redirect, url_for
+from markupsafe import escape # flask 2.3.0 deprecate direct escape import
 from fuzzywuzzy import fuzz
 import html
 
